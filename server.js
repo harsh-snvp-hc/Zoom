@@ -41,6 +41,4 @@ io.on('connection', function(socket) {
 
 });
 
-server.listen(process.env.PORT||3030,()=>{
-  console.log("server is listening")
-})
+server.listen(process.env.PORT||3030)
