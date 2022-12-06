@@ -1,8 +1,6 @@
 const socket = io('/')
 const videoGrid = document.getElementById('class-grid')
-const myPeer = new Peer(undefined, {  path: '/peerjs',
-host: '/',
-port: '443' });
+const myPeer = new Peer(undefined);
 
 let myVideoStream;
 const myVideo = document.createElement('video')
@@ -31,11 +29,10 @@ navigator.mediaDevices.getUserMedia({
   
   
   socket.on('user-connected', userId => {
-    // user is joining`
-    setTimeout(() => {
-    // user joined
-    connectToNewUser(userId, stream)
-    }, 1000)
+    console.log('New User Connected: ' + userId)
+    const fc = () => connectToNewUser(userId, stream)
+    timerid = setTimeout(fc, 1000 )
+    })
     })
   // input value
   let text = $("input");
@@ -50,7 +47,7 @@ navigator.mediaDevices.getUserMedia({
     $("ul").append(`<li class="message"><b>${userId}</b><br/>${message}</li>`);
     scrollToBottom()
   })
-})
+
   
 socket.on("user-disconnected",userId=>{
   if(peers[userId]) peers[userId].close()
